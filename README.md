@@ -69,3 +69,16 @@ END RequestId: 6155317e-f028-11e6-b22c-51eaabd15d33
 REPORT RequestId: 6155317e-f028-11e6-b22c-51eaabd15d33  Duration: 660.13 ms     Billed Duration: 700 ms         Memory Size: 1024 MB    Max Memory Used: 35 MB  
 ````
 you can see which file name has been uploaded to S3 and then that file been deleted from /tmp/.
+
+
+````commandline
+serverless logs -f commentParse
+````
+
+and the expected result should be similar to:
+````commandline
+START RequestId: 33c29257-f02e-11e6-8638-f9075e0278ef Version: $LATEST
+2017-02-11 15:46:31.809 (+08:00)        33c29257-f02e-11e6-8638-f9075e0278ef    HAS BEEN READ FROM S3:  {"postId":11,"id":54,"name":"culpa eius tempora sit consequatur neque iure deserunt","email":"Kenton_Vandervort@friedrich.com","body":"et ipsa rem ullam cum pariatur similique quia\ncum ipsam est sed aut inventore\nprovident sequi commodi enim inventore assumenda aut aut\ntempora possimus soluta quia consequatur modi illo"}
+END RequestId: 33c29257-f02e-11e6-8638-f9075e0278ef
+REPORT RequestId: 33c29257-f02e-11e6-8638-f9075e0278ef  Duration: 128.54 ms     Billed Duration: 200 ms         Memory Size: 1024 MB    Max Memory Used: 33 MB  
+````
