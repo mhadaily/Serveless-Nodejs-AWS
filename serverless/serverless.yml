@@ -1,0 +1,105 @@
+service: serverless-experimental-lambda-brandlab
+frameworkVersion: ">=1.1.0 < 2.0.0"
+
+custom:
+  bucket: brandlab-inbox
+
+provider:
+  name: aws
+  runtime: nodejs4.3
+  stage: dev
+  cfLogs: true
+  region: us-west-1
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - "s3:*"
+      Resource: "*"
+
+#  environment:
+#      COMMENTS_API_KEY: 0l9N6vKZvPaUWjiF5CLU71SHbqhj8o0RaeCCDGNG
+#  apiKeys:
+#    - commentsKey
+#    - ${self:custom.API_STAGE}-commentsKey
+#    - ${env.COMMENTS_API_KEY}
+
+# you can add packaging information here
+
+
+
+#package:
+#  exclude:
+#    - .git/**
+#    - yarn.lock
+#    - event.json
+#    - node_modules/**
+#    - tmp/**
+#    - '!node_modules/uuid/**'
+#    - '!node_modules/axios/**'
+#    - '!node_modules/aws-sdk/**'
+
+#first it will create a lambda function called GetComment and then will create an Endpoint which is Comments/{id} that will
+# this endpoint will trigger getComment function and then Getcomment will make a Ajax call to another server
+# once result comes back, it will be stored in /tmp/ folder in lambda and then Another module will upload it to S3, INBOX bucket
+# then, whenever a json file will be uploaded in comments folder CommentParse Lambda function will be triggered.
+
+
+
+functions:
+  comments:
+    handler: handlers/comment/getComment.getComment
+    environment:
+          BUCKET: ${self:custom.bucket}
+    events:
+      - http:
+          method: GET
+          path: comments/{id}
+          integration: lambda
+          cors: true
+          request:
+            parameteres:
+              paths:
+                id: true
+
+  commentParse:
+    handler: handlers/comment/commentParse.commentParser
+    environment:
+      BUCKET: ${self:custom.bucket}
+    events:
+      - s3:
+          bucket: ${self:custom.bucket}
+          event: s3:ObjectCreated:*
+          rules:
+            - prefix: comments/
+            - suffix: .json
+
+#    The following are a few example events you can configure
+#    NOTE: Please make sure to change your handler code to work with those events
+#    Check the event documentation for details
+#    events:
+#      - http:
+#          path: users/create
+#          method: get
+#      - s3: ${env:BUCKET}
+#      - schedule: rate(10 minutes)
+#      - sns: greeter-topic
+#      - stream: arn:aws:dynamodb:region:XXXXXX:table/foo/stream/1970-01-01T00:00:00.000
+#      - alexaSkill
+#      - iot:
+#          sql: "SELECT * FROM 'some_topic'"
+
+#    Define function environment variables here
+#    environment:
+#      variable2: value2
+
+# you can add CloudFormation resource templates here
+#resources:
+#  Resources:
+#    NewResource:
+#      Type: AWS::S3::Bucket
+#      Properties:
+#        BucketName: ${self:provider.environment.BUCKET}
+#  Outputs:
+#     NewOutput:
+#       Description: "this is INBOX Bucket"
+#       Value: "INBOX"
