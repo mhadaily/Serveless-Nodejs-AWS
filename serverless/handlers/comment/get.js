@@ -22,9 +22,17 @@ module.exports.getComment = (event, context, callback) => {
 
         fs.writeFile(tmpFile, res, 'utf8', (err) => {
           if (err) throw new Error(`Not able to write file!`);
-          uploadToS3.saveFileToS3(tmpFile, fileName, 'comments', callback);
-        });
+          //Upload to S3
+          uploadToS3.saveFileToS3(tmpFile, fileName, 'comments');
 
+          //if all goes ok, will return a callback to client.
+          const resBody = {
+            message: 'Successfully uploaded data to S3',
+            body: response.data
+          };
+
+          callback(null,JSON.stringify(resBody));
+        });
       })
       .catch((e) => {
         callback(e, null);
