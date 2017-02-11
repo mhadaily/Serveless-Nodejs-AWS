@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { ServerlessService } from "../services/serverless.service";
-import { Subject } from "rxjs/Subject";
+import {Component, OnInit} from '@angular/core';
+import {ServerlessService} from "../services/serverless.service";
+import {Subject} from "rxjs/Subject";
 import 'rxjs/add/operator/map';
 
 @Component({
@@ -10,24 +10,24 @@ import 'rxjs/add/operator/map';
 
 export class InstantSearchComponent implements OnInit {
 
-  spinner: boolean;
-  message: string;
-
+  public spinner: boolean;
+  public result;
 
   code$ = new Subject<any>();
 
-  constructor(private serverlessService: ServerlessService) {}
+  constructor(private serverlessService: ServerlessService) {
+  }
 
   ngOnInit() {
     this.serverlessService.doSearchbyID(this.code$)
       .subscribe(
         res => {
           this.spinner = false;
-          this.message = res
+          this.result = res;
         },
         err => {
           this.spinner = false;
-          this.message = `An Error! ${err.json().error}`
+          this.result = `An Error! ${err.json().error}`
         }
       );
   }
