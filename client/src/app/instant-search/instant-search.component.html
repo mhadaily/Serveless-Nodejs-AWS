@@ -5,8 +5,11 @@
     <div class="flex-item">
       <md-spinner color="accent" class="app-spinner" *ngIf="spinner"></md-spinner>
     </div>
+
     <div class="flex-item" *ngIf="result">
-      <md-card > {{result.message}} | File Name is: {{result.fileName}}</md-card>
+      <hr>
+      <md-card> {{result.message}} <hr> File Name is: {{result.fileName}}</md-card>
+      <hr>
       <md-card class="comment">
         <md-card-header>
           <md-card-title>Name: {{result.body.name}}</md-card-title>
@@ -20,8 +23,8 @@
         <md-card-actions>
           <button md-button> Post ID: {{result.body.postId}}</button>
           <button md-button> Comment id: {{result.body.id}}</button>
-          <button md-button>LIKE</button>
-          <button md-button>SHARE</button>
+          <a md-mini-fab color="accent"><md-icon>thumb_up</md-icon></a>
+          <a md-mini-fab color="primary"><md-icon>send</md-icon></a>
         </md-card-actions>
       </md-card>
     </div>
