@@ -50,7 +50,7 @@ plugins:
 
 functions:
   comments:
-    handler: handlers/comment/getComment.getComment
+    handler: handlers/comment/get.getComment
     environment:
           BUCKET: ${self:custom.bucket}
     events:
@@ -65,7 +65,7 @@ functions:
                 id: true
 
   commentParse:
-    handler: handlers/comment/commentParse.commentParser
+    handler: handlers/comment/parser.commentParser
     environment:
       BUCKET: ${self:custom.bucket}
     events:
