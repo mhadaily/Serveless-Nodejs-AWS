@@ -22,7 +22,7 @@ module.exports.getComment = (event, context, callback) => {
 
         fs.writeFile(tmpFile, res, 'utf8', (err) => {
           if (err) throw new Error(`Not able to write file!`);
-          uploadToS3.saveFileToS3(tmpFile, fileName, callback);
+          uploadToS3.saveFileToS3(tmpFile, fileName, 'comments', callback);
         });
 
       })

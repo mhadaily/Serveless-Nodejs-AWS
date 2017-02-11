@@ -6,7 +6,7 @@ const AWS = require('aws-sdk');
 
 const s3 = new AWS.S3({apiVersion: '2017-02-10'});
 
-module.exports.saveFileToS3 = function (lambdaLocalFile, fileName, callback) {
+module.exports.saveFileToS3 = function (lambdaLocalFile, fileName, prefix, callback) {
 
   //Read Async and send buffer data in callback in order to upload to s3
   fs.readFile(lambdaLocalFile, (err, data) => {
@@ -14,7 +14,7 @@ module.exports.saveFileToS3 = function (lambdaLocalFile, fileName, callback) {
 
     const param = {
       Bucket: process.env.BUCKET,
-      Key: `comments/${fileName}`,
+      Key: `${prefix}/${fileName}`,
       Body: data.toString('utf-8')
     };
 
