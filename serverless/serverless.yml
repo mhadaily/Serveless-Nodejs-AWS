@@ -25,7 +25,8 @@ provider:
 
 # you can add packaging information here
 
-
+package:
+  individually: true
 
 #package:
 #  exclude:
@@ -43,6 +44,8 @@ provider:
 # once result comes back, it will be stored in /tmp/ folder in lambda and then Another module will upload it to S3, INBOX bucket
 # then, whenever a json file will be uploaded in comments folder CommentParse Lambda function will be triggered.
 
+plugins:
+  - serverless-plugin-optimize
 
 
 functions:
