@@ -1,3 +1,16 @@
+@import '~@angular/material/core/theming/prebuilt/indigo-pink.css';
+
 body {
   font-family: Roboto;
+}
+
+.instantInput {
+  border: 0;
+  padding: 15px;
+  width: 96%;
+  font-size: 22px;
+}
+
+.instantInput:focus {
+  border: 0;
 }
