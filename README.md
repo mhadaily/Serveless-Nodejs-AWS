@@ -4,6 +4,8 @@ This purpose of this project is to show how Node.js micro services works with Am
 I will update this repository with a tutorial that shows 
 how you are able to easily create a micro-service and setup that in Lambda and working with other services in AWS. 
 
+*** [Angular Demo of Search an Comment and return response from Lambda](https://www.majidhajian.com/Serveless-Nodejs-AWS/)***
+
 #### TODO: I am going to create a very simple Angular2-cli app to just send a request to the API which I have created below, so please go to client folder and follow instruction. 
 
 ## Development Requirement
