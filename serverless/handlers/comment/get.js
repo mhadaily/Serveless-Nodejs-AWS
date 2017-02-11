@@ -27,11 +27,12 @@ module.exports.getComment = (event, context, callback) => {
 
           //if all goes ok, will return a callback to client.
           const resBody = {
+            fileName: fileName,
             message: 'Successfully uploaded data to S3',
             body: response.data
           };
 
-          callback(null,JSON.stringify(resBody));
+          callback(null, resBody);
         });
       })
       .catch((e) => {
