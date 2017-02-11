@@ -20,11 +20,21 @@ module.exports.commentParser = (event, context, callback) => {
   });
 
   ReadFile.then((data) => {
+
+    let utfData = data.Body.toString('utf-8');
+
+    //Show in logs CloudWatch logs
+    console.log('HAS BEEN READ FROM S3: ', utfData);
+
+    //return call backs with file\'s content
+    callback(null, utfData);
+
+    //Extra info as Metrics
     const cloudWatchparams = {
       MetricData: [{
         MetricName: event.eventName,
-        Timestamp: event.eventTime,
-        Unit: event.s3.object.key,
+        Timestamp: new Date,
+        Unit: event.s3.object.size,
         Value: event.s3.object.size
       }],
       Namespace: 'BrandLabCustomS3Metrics' /* required */
@@ -32,8 +42,9 @@ module.exports.commentParser = (event, context, callback) => {
     //put metrics in cloudWatch
     cloudwatch.putMetricData(cloudWatchparams, (err, data) => {
       if (err) throw new Error(err + err.stack);
-      callback(null, data);
+      console.log(data);
     });
+
   }).catch((e) => {
     callback(e, null);
   });
