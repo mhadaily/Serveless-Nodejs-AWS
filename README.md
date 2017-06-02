@@ -6,7 +6,7 @@ how you are able to easily create a micro-service and setup that in Lambda and w
 
 *** [Angular Demo of Search an Comment and return response from Lambda](https://www.majidhajian.com/Serveless-Nodejs-AWS/)***
 
-#### TODO: I am going to create a very simple Angular2-cli app to just send a request to the API which I have created below, so please go to client folder and follow instruction. 
+#### Angular project is under Client folder 
 
 ## Development Requirement
  
